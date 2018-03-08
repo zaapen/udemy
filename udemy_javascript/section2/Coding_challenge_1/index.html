@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Challenge 1</title>
+	<script type="text/javascript">
+		var friend1_height = 6;
+		var friend1_age = 25;
+
+		var friend2_height = 5;
+		var friend2_age = 23;
+
+		var friend3_height = 4;
+		var friend3_age = 30;
+
+		friend1_score = friend1_height + 5 * friend1_age;
+		friend2_score = friend2_height + 5 * friend2_age;
+		friend3_score = friend3_height + 5 * friend3_age;
+
+		if (friend1_score > friend2_score && friend1_score > friend3_score) {
+			console.log('friend 1 wins with ' + friend1_score);
+		} else if (friend1_score < friend2_score && friend2_score > friend3_score) {
+			console.log('friend 2 wins with ' + friend2_score);
+		} else if (friend3_score > friend1_score && friend3_score > friend2_score) {
+			console.log('friend 3 wins with ' + friend3_score);
+		} else {
+			console.log('it is a draw.')
+		}
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

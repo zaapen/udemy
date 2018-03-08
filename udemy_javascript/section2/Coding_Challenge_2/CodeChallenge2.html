@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coding Challenge 2</title>
+	<script type="text/javascript">
+		var yearOfBirth = [1985, 2000, 1956, 1979, 2007];
+		var personAges = [];
+		var age = function(yearOfBirth) {
+			return 2017 - yearOfBirth;
+		};
+		// for (var i = 0; i < yearOfBirth.length; i++) {
+		// 	personAges.push(age(yearOfBirth[i]));
+		// }
+		// for (i = 0; i < personAges.length; i++) {
+		// 	if (personAges[i] >= 18) {
+		// 		console.log('person ' + (i + 1) + ' is full age of ' + personAges[i] + '.');
+		// 	} else {
+		// 		console.log('person ' + (i+1) + ' is not full age. This person is ' + personAges[i] + ' years old.');
+		// 	}
+		// }
+
+		function printFullAge(yearOfBirth) {
+			var ageOfPerson = [];
+			var fullAge = [];
+			for (var i = 0; i < yearOfBirth.length; i++) {
+				ageOfPerson.push(age(yearOfBirth[i]));
+			};
+			for (var j = 0; j < ageOfPerson.length; j++) {
+				if (ageOfPerson[j] >= 18) {
+					fullAge.push(true);
+					console.log('person ' + (j + 1) + ' is full age of ' + ageOfPerson[j] + '.');
+				} else {
+					fullAge.push(false);
+					console.log('person ' + (j+1) + ' is not full age. This person is ' + ageOfPerson[j] + ' years old.');
+				}
+			};
+			return fullAge;
+		}
+		var full_1 = printFullAge(yearOfBirth);
+		var full_2 = printFullAge([2012, 1989, 1995]);
+
+		
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
