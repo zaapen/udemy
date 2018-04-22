@@ -19,7 +19,7 @@ class Park extends Town {
 }
 
 class Street extends Town {
-	constructor(name, buildYear, length, size) {
+	constructor(name, buildYear, length, size = 3) {
 		super(name, buildYear);
 		this.length = length;
 		this.size = size;
@@ -38,26 +38,24 @@ class Street extends Town {
 
 
 var firstPark = new Park('First Park', 1950, 200, 2000);
-var secondPark = new Park('Second Park', 1955, 600, 4000);
+var secondPark = new Park('Second Park', 1955, 1500, 4000);
 var thirdPark = new Park('Third Park', 1975, 400, 3000);
 
 var firstStreet = new Street('1st ST', 1960, 10, 1);
-var secondStreet = new Street('2nd ST', 1970, 10, 2);
-var thirdStreet = new Street('3rd ST', 1980, 10);
-var fourthStreet = new Street('4th ST', 1990, 10, 5);
+var secondStreet = new Street('2nd ST', 1970, 5, 2);
+var thirdStreet = new Street('3rd ST', 1980, 15);
+var fourthStreet = new Street('4th ST', 1990, 20, 5);
 
 var allParks = [firstPark, secondPark, thirdPark];
 var allStreets = [firstStreet, secondStreet, thirdStreet, fourthStreet];
 
 function calculateAvg(arr) {
-	var sum;
-	var average;
-	for (var i = 0; i <= arr.length; i++) {
+	var sum = 0;
+	var average = 0;
+	for (var i = 0; i < arr.length; i++) {
 		sum += arr[i];
 	}
 	average = sum / arr.length;
-	console.log(sum);
-	console.log(average);
 	return [sum, average];
 }
 
@@ -67,21 +65,31 @@ function parkReport(park) {
 	park.forEach(el => el.calcDensity());
 
 	//Average Age
-	const ages = park.map(el => new Date().getFullYear() - this.buildYear);
-	// console.log(ages);
+	const ages = park.map(el => new Date().getFullYear() - el.buildYear);
 	const [totalAge, avgAge] = calculateAvg(ages);
+	console.log(`Our town has ${park.length} parks total and has an average age of ${avgAge}.`)
 
 
 	// Name of the park that has more than 1000 trees
+	const manyTree = park.map(el => el.numTrees).findIndex(el => el >= 1000);
 
+	console.log(`${park[manyTree].name} has more than 1000 trees.`);
 
 }
 
 function streetReport(st) {
+	console.log('----Street Report----');
 
+	// Average street length
+	const length = st.map(el => el.length);
+	const [totalLength, avgLength] = calculateAvg(length);
+	console.log(`Our ${st.length} streets has a total distance of ${totalLength} miles and an average distance of ${avgLength} miles.`);
+
+	// City classification
+	st.forEach(el => el.classifyStreet());
 }
 
 
 parkReport(allParks);
-
+streetReport(allStreets);
 
