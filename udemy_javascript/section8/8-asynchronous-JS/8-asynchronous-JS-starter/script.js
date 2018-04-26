@@ -69,14 +69,72 @@ const getRelated = publisher => {
 //         console.log('Error!')
 //     })
 
-async function getRecipesAW() {
-    const IDs = await getIDs;
-    console.log(IDs);
-    const recipe = await getRecipe(IDs[2]);
-    console.log(recipe);
-    const related = await getRelated('Jonas Schmedtmann');
-    console.log(related);
+//////////////////////////////////////////////////////////
+// Lecture: Async functions
 
-    return recipe;
+
+// async function getRecipesAW() {
+//     const IDs = await getIDs;
+//     console.log(IDs);
+//     const recipe = await getRecipe(IDs[2]);
+//     console.log(recipe);
+//     const related = await getRelated('Jonas Schmedtmann');
+//     console.log(related);
+
+//     return recipe;
+// }
+// getRecipesAW().then(result => console.log(`${result} is the best ever!`));
+
+// fetch('https://crossorigin.me/https://www.metaweather.com/api/location/2487956/')
+// .then(result => {
+//     console.log(result);
+//     return result.json();
+// })
+// .then(data => {
+//     // console.log(data);
+//     const today = data.consolidated_weater[0];
+//     console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`);
+// })
+// .catch(error => console.log(error));
+
+function getWeather(zipcode) {
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&APPID=a3ec83f71849d6785bc9c5874d19e4e1`)
+    .then(result => {
+        // console.log(result);
+        return result.json();
+    })
+    .then(data => {
+        // console.log(data);
+        const today = data.list[0];
+        const minTemp = Math.floor(1.8 * (today.main.temp_min - 273) + 32);
+        const maxTemp = Math.floor(1.8 * (today.main.temp_max - 273) + 32);
+        console.log(`Temperatures in ${data.city.name} stay between ${minTemp} and ${maxTemp}`);
+    })
+    .catch(error => console.log('Cannot find zip code!'));
 }
-getRecipesAW().then(result => console.log(`${result} is the best ever!`));
+getWeather(90210);
+
+
+async function getWeatherAW(zipcode) {
+    try {
+        const result = await fetch(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&APPID=a3ec83f71849d6785bc9c5874d19e4e1`);
+        const data = await result.json();
+        const tomorrow = data.list[1];
+        const minTemp = Math.floor(1.8 * (tomorrow.main.temp_min - 273) + 32);
+        const maxTemp = Math.floor(1.8 * (tomorrow.main.temp_max - 273) + 32);
+        console.log(`Temperatures tomorrow in ${data.city.name} stay between ${minTemp} and ${maxTemp}`);
+        return data;
+    } catch(error) {
+        console.log(error);
+    } 
+}
+getWeatherAW(91792);
+let dataBeverlyHill;
+getWeatherAW(90210).then(data => {
+    dataBeverlyHill = data;
+    console.log(dataBeverlyHill);
+});
+
+
+
+
